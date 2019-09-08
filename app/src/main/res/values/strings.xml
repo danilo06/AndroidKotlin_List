@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ListTask</string>
+    <string name="AddButton">ADD</string>
+    <string name="txtTitle">Use lonk click on any item to remove it!</string>
+    <string name="Note">Write your next task</string>
+    <string name="NoteNull">Write your task</string>
+</resources>
