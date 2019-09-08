@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.widget.AdapterView
 import android.widget.ListView
+import java.io.FileNotFoundException
 import java.io.PrintStream
 
 class MainActivity : AppCompatActivity() {
@@ -31,7 +32,6 @@ class MainActivity : AppCompatActivity() {
         LIST_VIEW = findViewById<ListView>(R.id.ListTask)
         ArrayListTask = readTaskFile()
         configureList()
-
         LIST_VIEW!!.onItemLongClickListener =  AdapterView.OnItemLongClickListener { parent, view, position, id ->
             ArrayListTask!!.removeAt(position)
             adaptador2!!.notifyDataSetChanged()
@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Write your task", Toast.LENGTH_SHORT).show()
         }else{
             ArrayListTask.add(editText.text.toString())
-            configureList()
+            adaptador2!!.notifyDataSetChanged()
         }
     }
 
