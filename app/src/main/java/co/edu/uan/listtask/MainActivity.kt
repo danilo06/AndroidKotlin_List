@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
     var ArrayListTask = ArrayList<String>()
     var adaptador2:ArrayAdapter<String>?=null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -29,20 +28,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun AddButtonClick(view: View){
+
+
         if(editText.text.toString().isNullOrEmpty()){
             Toast.makeText(this, "Write your task", Toast.LENGTH_SHORT).show()
         }else{
-            writeFile(editText.text.toString())
+            var texto = editText.text.toString()
+            //writeFile(texto)
+            ArrayListTask.add(texto)
+            writeFile()
             //configureList()
         }
     }
 
-    fun writeFile(text: String){
+    fun writeFile(){
         //Agregar la informacion al arreglo y luego reemplazar el archivo de texto
-        ArrayListTask.add(String())
+
         adaptador2 = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ArrayListTask)
         ListTask.adapter = adaptador2
-
     }
 
     fun configureList(){
