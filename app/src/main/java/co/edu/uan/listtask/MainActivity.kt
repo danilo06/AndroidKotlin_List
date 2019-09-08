@@ -14,38 +14,43 @@ import androidx.core.app.ComponentActivity
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.widget.AdapterView
+import android.widget.ListView
 import java.io.PrintStream
 
 class MainActivity : AppCompatActivity() {
 
     var ArrayListTask = ArrayList<String>()
     var adaptador2:ArrayAdapter<String>?=null
+    var FILE_NAME: String = "tasks.txt"
+    var LIST_VIEW: ListView?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        LIST_VIEW = findViewById<ListView>(R.id.ListTask)
+        ArrayListTask = readTaskFile()
         configureList()
+
+        LIST_VIEW!!.onItemLongClickListener =  AdapterView.OnItemLongClickListener { parent, view, position, id ->
+            ArrayListTask!!.removeAt(position)
+            adaptador2!!.notifyDataSetChanged()
+            true
+        }
     }
 
     fun AddButtonClick(view: View){
         if(editText.text.toString().isNullOrEmpty()){
             Toast.makeText(this, "Write your task", Toast.LENGTH_SHORT).show()
         }else{
-            var texto = editText.text.toString()
-            ArrayListTask.add(texto)
-            writeFile()
+            ArrayListTask.add(editText.text.toString())
+            configureList()
         }
     }
 
-    fun writeFile(){
+    fun configureList(){
         adaptador2 = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ArrayListTask)
         ListTask.adapter = adaptador2
-    }
-
-    fun configureList(){
-        ArrayListTask = readTaskFile()
-        var adaptador = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ArrayListTask)
-        ListTask.adapter = adaptador
     }
 
     fun readTaskFile() : ArrayList<String>{
