@@ -28,22 +28,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun AddButtonClick(view: View){
-
-
         if(editText.text.toString().isNullOrEmpty()){
             Toast.makeText(this, "Write your task", Toast.LENGTH_SHORT).show()
         }else{
             var texto = editText.text.toString()
-            //writeFile(texto)
             ArrayListTask.add(texto)
             writeFile()
-            //configureList()
         }
     }
 
     fun writeFile(){
-        //Agregar la informacion al arreglo y luego reemplazar el archivo de texto
-
         adaptador2 = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, ArrayListTask)
         ListTask.adapter = adaptador2
     }
