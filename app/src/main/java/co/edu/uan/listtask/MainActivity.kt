@@ -5,8 +5,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -14,8 +12,8 @@ import androidx.core.app.ComponentActivity
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-import android.widget.AdapterView
-import android.widget.ListView
+import android.util.Log
+import android.widget.*
 import java.io.FileNotFoundException
 import java.io.PrintStream
 
@@ -25,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     var adaptador2:ArrayAdapter<String>?=null
     var FILE_NAME: String = "tasks.txt"
     var LIST_VIEW: ListView?=null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +36,17 @@ class MainActivity : AppCompatActivity() {
             adaptador2!!.notifyDataSetChanged()
             true
         }
+    }
+
+    fun wrifeFile() {
+        Log.i("CLASE", "Guardando la tarea $editText.text.toString()")
+        val output = PrintStream(
+            openFileOutput(FILE_NAME, Context.MODE_APPEND))
+        output.println(editText.text.toString())
+        output.close()
+        ArrayListTask = readTaskFile()
+        adaptador2!!.notifyDataSetChanged()
+
     }
 
     fun AddButtonClick(view: View){
